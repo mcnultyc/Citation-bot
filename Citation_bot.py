@@ -1,19 +1,15 @@
 import praw
 import re     
 import sys
-
-# Handle citation request
-def get_citation(request):
-    # Entry point for parsing
-    # TODO !!
-    return None
+import spacy
 
 
 # Format citation response and reply to request
-def respond_citation(citation, request):
-    # request.reply(citation)
-    # TODO !!
+def respond_citation(comment, citation):
+    # comment.reply(citation)
+    # TODO
     return
+
 
 # Function to get the citation requests from a submission on reddit
 def get_citation_requests(submission):
@@ -27,11 +23,50 @@ def get_citation_requests(submission):
             requests.append(comment)
     return requests
 
+
+# Handle citation request
+def get_citation(nlp, request):
+    # Parse request
+    doc = nlp(request)
+    return None
+
+# Get citations from submission
+def get_citations(nlp, submission):
+    # Remove MoreComments objects from comment forest
+    submission.comments.replace_more(limit=0)
+    # List of citation requests
+    citations = []
+    # Add top-level comments to stack
+    comments_stack = submission.comments[:]
+    # DFS through comment forest
+    while comments_stack:
+        # Get comment from top of stack
+        comment = comments_stack.pop()
+        if re.search('citation needed', comment.body, re.IGNORECASE):
+            citation = get_citation(nlp, comment.body)
+            # Test if citation could be created for original comment
+            if citation is None:
+                parent_comment = comment.parent
+                if parent_comment != submission:
+                    # Get citation from parent comment
+                    citation = get_citation(nlp, parent_comment.body)
+                    if citation:
+                        citations.append((parent_comment, citation))
+            else:
+                # Add citation created for original comment
+                citations.append((comment, citation))
+        # Add comment replies to stack
+        comments_stack.extend(comment.replies)
+    return citations
+
+
 if __name__ == '__main__':
     # Check for right number of arguments
     if len(sys.argv) < 2:
         print('Error missing argument. Usage: <subreddit>')
         sys.exit(-1)
+    # Load english language model
+    nlp = spacy.load('en_core_web_sm')
     # Get subreddit from command line
     subreddit = sys.argv[1]
     # Create reddit instance using our bots keys
@@ -40,15 +75,9 @@ if __name__ == '__main__':
                      user_agent='Citation-bot')
     # Iterate through top-10 submissions in the subreddit
     for submission in reddit.subreddit(subreddit).hot(limit=10):
-        # Get requests from submission
-        requests = get_citation_requests(submission)
-        # Handle any request
-        if len(requests) == 0:
-            print('No citation requests from submission "{0}"'.format(submission.title))
-        else:
-            for request in requests:
-                # Get citation
-                citation = get_citation(request)
-                if citation is not None:
-                    # Respond to request with citation
-                    respond_citation(ccitation, request)
+        # Get citations from submission
+        citations = get_citations(nlp, submission)
+        # Iterate through citations
+        for (comment, citation) in citations:
+            # Respond to citation request
+            respond_citation(comment, citation)
