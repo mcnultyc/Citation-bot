@@ -35,3 +35,5 @@ was run from the command line.
   It combines the power of CSS selectors with the ability to traverse the [DOM](https://en.wikipedia.org/wiki/Document_Object_Model).</br>
   Microsoft has a great writeup on XPath with many [examples](https://msdn.microsoft.com/en-us/library/ms256086(v=vs.110).aspx) and there's
   a great </br> [cheatsheet](https://devhints.io/xpath) available online.
+ 
+- [urllib](https://docs.python.org/3/library/urllib.html) - This is the built-in Python library for sending HTTP requests.
