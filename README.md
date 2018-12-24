@@ -37,3 +37,6 @@ was run from the command line.
   a great </br> [cheatsheet](https://devhints.io/xpath) available online.
  
 - [urllib](https://docs.python.org/3/library/urllib.html) - This is the built-in Python library for sending HTTP requests.
+
+- [Natural Language Processing](https://en.wikipedia.org/wiki/Natural_language_processing) - Wikipedia article on NLP, which might be     helpful for understanding</br>
+  SpaCy. This section on [major evaluations and tasks](https://en.wikipedia.org/wiki/Natural_language_processing#Major_evaluations_and_tasks) was particularly helpful.
