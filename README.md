@@ -1,6 +1,7 @@
 Reddit bot to provide automatic citations
 
 ## [Reddit Citation-bot profile](https://www.reddit.com/user/Citation-bot/)
+The API keys for the application are available inside of the script.
 
 # Setup:
 ## Python packages to install:
@@ -20,5 +21,5 @@ Reddit bot to provide automatic citations
 ## Using the wikipedia spider:
 Inside of the main **wikiSpider** directory you'll want to enter the command: `scrapy crawl article`.</br>
 This calls the spider by the name of **article**, which was defined on the line: `name = "article"`</br> 
-in **/wikiSpider/wikiSpider/spiders/WikiArticleSpider.py**. To create the Scrapy project `scrapy startproject</br>
+in **/wikiSpider/wikiSpider/spiders/WikiArticleSpider.py**. To create the Scrapy project `scrapy startproject
 wikiSpider` was run from the command line.
