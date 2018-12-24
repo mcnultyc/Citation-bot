@@ -24,3 +24,9 @@ This calls the spider by the name of **article**, which was defined on the line:
 in [WikiArticleSpider](/wikiSpider/wikiSpider/spiders/WikiArticleSpider.py). To create the Scrapy project `scrapy startproject wikiSpider`</br>
 was run from the command line.
 
+## Resources
+- [API:Main page - MediaWiki](https://www.mediawiki.org/wiki/API:Main_page) - MediaWiki action API for Wikipedia.
+
+- [ADAM - A Question Answering System](https://github.com/5hirish/adam_qas) - A question answering system that extracts answers</br>
+  from Wikipedia to questions posed in natural language. It has some good examples on how to</br>
+  [fetch and parse Wikipedia articles](https://github.com/5hirish/adam_qas/tree/master/qas/wiki) using the MediaWiki API.
