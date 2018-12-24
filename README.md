@@ -1,12 +1,12 @@
-Reddit bot to provide automatic citations
+# Citation-bot: bot to provide automatic citations
 
 ## [Reddit Citation-bot profile](https://www.reddit.com/user/Citation-bot/)
-The API keys for the application are available inside of the script.
 
-# Setup:
-## Python packages to install:
+## Setup:
+### Python packages to install:
 - Install [PRAW: The Python Reddit API Wrapper](https://praw.readthedocs.io/en/latest/)</br>
-  by entering `pip install praw` in the command line.
+  by entering `pip install praw` in the command line. The API keys for the application are</br>
+  available inside of the [Citation_bot.py](Citation_bot.py) script.
   
 - Install [SpaCy: Industrial Strength Natural Language Processing](https://spacy.io/)</br>
   by entering `pip install spacy` in the command line. You'll also need to install the [english language model](https://github.com/explosion/spacy-models/releases//tag/en_core_web_sm-2.0.0)</br>
@@ -18,8 +18,9 @@ The API keys for the application are available inside of the script.
 - Install [Scrapy: A Fast and Powerful Scraping and Web Crawling Framework](https://scrapy.org/)<br>
   by entering `pip install scrapy` in the command line.
 
-## Using the wikipedia spider:
-Inside of the main **wikiSpider** directory you'll want to enter the command: `scrapy crawl article`.</br>
+### Using the wikipedia spider:
+Inside of the main [wikiSpider](wikiSpider) directory you'll want to enter the command: `scrapy crawl article`.</br>
 This calls the spider by the name of **article**, which was defined on the line: `name = "article"`</br> 
-in **/wikiSpider/wikiSpider/spiders/WikiArticleSpider.py**. To create the Scrapy project `scrapy startproject
-wikiSpider` was run from the command line.
+in [WikiArticleSpider](/wikiSpider/wikiSpider/spiders/WikiArticleSpider.py). To create the Scrapy project `scrapy startproject wikiSpider`</br>
+was run from the command line.
+
