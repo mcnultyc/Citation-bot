@@ -1,9 +1,9 @@
 # Citation-bot: bot to provide automatic citations
 
-## [Reddit Citation-bot profile](https://www.reddit.com/user/Citation-bot/)
+## :see_no_evil: [Reddit Citation-bot profile](https://www.reddit.com/user/Citation-bot/)
 
-## Setup:
-### Python packages to install:
+## :wrench: Setup
+### Python packages to install
 - Install [PRAW: The Python Reddit API Wrapper](https://praw.readthedocs.io/en/latest/)</br>
   by entering `pip install praw` in the command line. The API keys for the application are</br>
   available inside of the [Citation_bot.py](Citation_bot.py) script.
@@ -24,7 +24,7 @@ This calls the spider by the name of **article**, which was defined on the line:
 in [WikiArticleSpider](/wikiSpider/wikiSpider/spiders/WikiArticleSpider.py). To create the Scrapy project `scrapy startproject wikiSpider`</br>
 was run from the command line.
 
-## Resources
+## :book: Resources
 - [API:Main page - MediaWiki](https://www.mediawiki.org/wiki/API:Main_page) - MediaWiki action API for Wikipedia.
 
 - [ADAM - A Question Answering System](https://github.com/5hirish/adam_qas) - A question answering system that extracts answers</br>
