@@ -2,7 +2,7 @@ import praw
 import re     
 import sys
 import spacy
-
+from collections import defaultdict
 
 # Format citation response and reply to request
 def respond_citation(comment, citation):
@@ -25,10 +25,22 @@ def get_citation_requests(submission):
 
 
 # Handle citation request
-def get_citation(nlp, request):
+def get_citation(nlp, comment_body):
     # Parse request
-    doc = nlp(request)
+    doc = nlp(comment_body)
+    sentences_ents = defaultdict()
+    # Add entities for each sentence to dictionary
+    for sentence in doc.sents:
+        sentences_ents[sentence.orth_] = defaultdict(set)
+        for entity in sentence.ents:
+            sentences_ents[sentence.orth_][entity.label_].add(entity.text)
+    # Add each noun chunk to sentences in dictionary
+    for phrase in doc.noun_chunks:
+        sentences_ents[phrase.sent.orth_][phrase.label_].add(phrase.text)
+    if len(sentences_ents):
+        return sentences_ents
     return None
+
 
 # Get citations from submission
 def get_citations(nlp, submission):
