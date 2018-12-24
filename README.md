@@ -30,3 +30,8 @@ was run from the command line.
 - [ADAM - A Question Answering System](https://github.com/5hirish/adam_qas) - A question answering system that extracts answers</br>
   from Wikipedia to questions posed in natural language. It has some good examples on how to</br>
   [fetch and parse Wikipedia articles](https://github.com/5hirish/adam_qas/tree/master/qas/wiki) using the MediaWiki API.
+
+- [XPath](https://en.wikipedia.org/wiki/XPath) - XPath is a markup pattern selector for XML-based documents (like HTML).</br>
+  It combines the power of CSS selectors with the ability to traverse the [DOM](https://en.wikipedia.org/wiki/Document_Object_Model).</br>
+  Microsoft has a great writeup on XPath with many [examples](https://msdn.microsoft.com/en-us/library/ms256086(v=vs.110).aspx) and there's
+  a great </br> [cheatsheet](https://devhints.io/xpath) available online.
