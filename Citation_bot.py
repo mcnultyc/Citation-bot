@@ -23,6 +23,22 @@ def get_citation_requests(submission):
             requests.append(comment)
     return requests
 
+def extract_entity_relations(doc):
+    # Merge noun phrases and entities into a single token
+    spans = list(doc.ents) + list(doc.noun_chunks)
+    for span in spans:
+        span.merge()
+    relations = []
+    for token in doc:
+        if token.dep_ in ('attr', 'dobj'):
+            subject = [t for t in token.head.lefts if t.dep_ == 'nsubj']
+            if subject:
+                subject = subject[0]
+                relations.append((subject, token))
+        elif token.dep_ == 'pobj' and token.head.dep_ == 'prep':
+            relations.append((token.head, token))
+    return relations
+
 
 # Handle citation request
 def get_citation(nlp, comment_body):
