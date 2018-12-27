@@ -36,7 +36,9 @@ was run from the command line.
   Microsoft has a great writeup on XPath with many [examples](https://msdn.microsoft.com/en-us/library/ms256086(v=vs.110).aspx) and there's
   a great </br> [cheatsheet](https://devhints.io/xpath) available online.
  
-- [urllib](https://docs.python.org/3/library/urllib.html) - This is the built-in Python library for sending HTTP requests.
+- [requests](http://docs.python-requests.org/en/master/) - This is the built-in Python library for sending HTTP requests.
+ 
+- [urllib](https://docs.python.org/3/library/urllib.html) - This is a package that collects several modules for working with URLs.
 
 - [Natural Language Processing](https://en.wikipedia.org/wiki/Natural_language_processing)/[SpaCy](https://spacy.io/) - Wikipedia article on NLP, which might be helpful for understanding</br>
   SpaCy. This section on [major evaluations and tasks](https://en.wikipedia.org/wiki/Natural_language_processing#Major_evaluations_and_tasks) was particularly helpful. Here's an example of</br>
