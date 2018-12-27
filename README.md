@@ -25,7 +25,9 @@ in [WikiArticleSpider](/wikiSpider/wikiSpider/spiders/WikiArticleSpider.py). To 
 was run from the command line.
 
 ## :book: Resources
-- [API:Main page - MediaWiki](https://www.mediawiki.org/wiki/API:Main_page) - MediaWiki action API for Wikipedia.
+- [API:Main page - MediaWiki](https://www.mediawiki.org/wiki/API:Main_page) - MediaWiki action API for Wikipedia. The MediaWiki API</br>
+  is a web service that gives you access to Wikipedia features like authentication, page operations, and search.</br>
+  The official tutorial for the API is available [here](https://www.mediawiki.org/wiki/API:Tutorial).
 
 - [ADAM - A Question Answering System](https://github.com/5hirish/adam_qas) - A question answering system that extracts answers</br>
   from Wikipedia to questions posed in natural language. It has some good examples on how to</br>
