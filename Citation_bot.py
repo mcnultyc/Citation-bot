@@ -2,7 +2,24 @@ import praw
 import re     
 import sys
 import spacy
+import requests
+import urllib.parse
 from collections import defaultdict
+
+def get_pages_info(search_terms, limit):
+    params = {'action' : 'query', 'format' : 'json', 'list' : 'search', 'srlimit': str(limit)}
+    url = 'https://en.wikipedia.org/w/api.php'
+    pages_info = []
+    for search_term in search_terms:
+        url_term = urllib.parse.quote(search_term)
+        params['srsearch'] = url_term
+        response = requests.get(url, params)
+        json = response.json()
+        if 'error' not in json:
+            pages = json.get('query').get('search')
+            for page in pages:
+                pages_info.append((page.get('title'), page.get('pageid')))
+    return pages_info
 
 # Format citation response and reply to request
 def respond_citation(comment, citation):
