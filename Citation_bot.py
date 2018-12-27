@@ -6,10 +6,10 @@ import requests
 import urllib.parse
 from collections import defaultdict
 
-def get_pages_info(search_terms, limit):
+def get_page_ids(search_terms, limit):
     params = {'action' : 'query', 'format' : 'json', 'list' : 'search', 'srlimit': str(limit)}
     url = 'https://en.wikipedia.org/w/api.php'
-    pages_info = []
+    page_ids = []
     for search_term in search_terms:
         url_term = urllib.parse.quote(search_term)
         params['srsearch'] = url_term
@@ -18,8 +18,23 @@ def get_pages_info(search_terms, limit):
         if 'error' not in json:
             pages = json.get('query').get('search')
             for page in pages:
-                pages_info.append((page.get('title'), page.get('pageid')))
-    return pages_info
+                page_ids.append(page.get('pageid'))
+    return page_ids
+
+def get_pages(search_terms, limit):
+    params = {'action' : 'parse', 'format' : 'json'}
+    url = 'https://en.wikipedia.org/w/api.php'
+    page_ids = get_page_ids(search_terms, limit)
+    pages = []
+    for page_id in page_ids:
+        params['pageid'] = page_id
+        response = requests.get(url, params)
+        json = response.json()
+        if 'error' not in json:
+            title = json.get('parse').get('title')
+            html = json.get('parse').get('text').get('*')
+            pages.append((title, html))
+    return pages
 
 # Format citation response and reply to request
 def respond_citation(comment, citation):
