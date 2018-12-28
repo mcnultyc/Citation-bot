@@ -5,6 +5,8 @@ import spacy
 import requests
 import urllib.parse
 from collections import defaultdict
+from lxml import etree
+
 
 def get_page_ids(search_terms, limit):
     params = {'action' : 'query', 'format' : 'json', 'list' : 'search', 'srlimit': str(limit)}
@@ -16,10 +18,11 @@ def get_page_ids(search_terms, limit):
         response = requests.get(url, params)
         json = response.json()
         if 'error' not in json:
-            pages = json.get('query').get('search')
+            pages = json['query']['search']
             for page in pages:
-                page_ids.append(page.get('pageid'))
+                page_ids.append(page['pageid'])
     return page_ids
+
 
 def get_pages(search_terms, limit):
     params = {'action' : 'parse', 'format' : 'json'}
@@ -31,10 +34,24 @@ def get_pages(search_terms, limit):
         response = requests.get(url, params)
         json = response.json()
         if 'error' not in json:
-            title = json.get('parse').get('title')
-            html = json.get('parse').get('text').get('*')
-            pages.append((title, html))
+            page = defaultdict()
+            page['title'] = json['parse']['title']
+            page['html'] = json['parse']['text']['*']
+            page['pageid'] = json['parse']['pageid']
+            pages.append(page)
     return pages
+
+
+def get_citationss(search_terms):
+    parser = etree.HTMLParser(remove_blank_text=True, remove_comments=True)
+    external_references = '//ol[@class="references"]//a[starts-with(@class, "external")]'
+    pages = get_pages(search_terms, 10)
+    for page in pages:
+        html_tree = etree.fromstring(page['html'], parser)
+        print('\n', page['title'], '\n')
+        references = html_tree.xpath(external_references)
+        for i in range(0, len(references)):
+            print(i + 1, ':', references[i].text)
 
 # Format citation response and reply to request
 def respond_citation(comment, citation):
@@ -121,6 +138,8 @@ def get_citations(nlp, submission):
 
 
 if __name__ == '__main__':
+    get_citationss(['Hillary Clinton'])
+    sys.exit(0)
     # Check for right number of arguments
     if len(sys.argv) < 2:
         print('Error missing argument. Usage: <subreddit>')
