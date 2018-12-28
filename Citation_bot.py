@@ -42,7 +42,7 @@ def get_pages(search_terms, limit):
     return pages
 
 
-def get_citationss(search_terms):
+def print_citations(search_terms):
     parser = etree.HTMLParser(remove_blank_text=True, remove_comments=True)
     external_references = '//ol[@class="references"]//a[starts-with(@class, "external")]'
     pages = get_pages(search_terms, 10)
@@ -52,6 +52,7 @@ def get_citationss(search_terms):
         references = html_tree.xpath(external_references)
         for i in range(0, len(references)):
             print(i + 1, ':', references[i].text)
+
 
 # Format citation response and reply to request
 def respond_citation(comment, citation):
@@ -138,8 +139,6 @@ def get_citations(nlp, submission):
 
 
 if __name__ == '__main__':
-    get_citationss(['Hillary Clinton'])
-    sys.exit(0)
     # Check for right number of arguments
     if len(sys.argv) < 2:
         print('Error missing argument. Usage: <subreddit>')
