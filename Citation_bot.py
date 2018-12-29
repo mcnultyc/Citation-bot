@@ -42,14 +42,55 @@ def get_pages(search_terms, limit):
     return pages
 
 
+def get_references_table(root, parser):
+    references_xpath = '//ol[@class="references"]/li'
+    references = root.xpath(references_xpath)
+    citations_table = defaultdict(list)
+    for citation in references:
+        if 'id' in citation.attrib:
+            cite_note = citation.attrib['id']
+            for descendant in citation.iterdescendants(tag='a'):
+                if 'class' in descendant.attrib:
+                    if 'external' in descendant.attrib['class']:
+                        link = descendant.attrib['href']
+                        citations_table[cite_note].append(link)
+    return citations_table
+        
+
+def print_reference_tables(search_terms, limit = 1):
+    parser = etree.HTMLParser(remove_blank_text=True, remove_comments=True)
+    pages = get_pages(search_terms, limit)
+    for page in pages:
+        root = etree.fromstring(page['html'], parser)
+        references_table = get_references_table(root, parser)
+        count = 1
+        for cite_note, references in references_table.items():
+            print('{}. {}'.format(count, cite_note))
+            for reference in references:
+                print('\t', reference)
+            count += 1
+
+
 def print_citations(search_terms):
     parser = etree.HTMLParser(remove_blank_text=True, remove_comments=True)
-    external_references = '//ol[@class="references"]//a[starts-with(@class, "external")]'
-    pages = get_pages(search_terms, 10)
+    citations_xpath = '//sup[@class="reference"]/a'
+    pages = get_pages(search_terms, limit=10)
+    for page in pages:
+        html_tree = etree.fromstring(page['html'], parser)
+        print(page['title'])
+        citations = html_tree.xpath(citations_xpath)
+        for i in range(0, len(citations)):
+            print(i + 1, ':', citations[i].attrib['href'])
+       
+
+def print_references(search_terms):
+    parser = etree.HTMLParser(remove_blank_text=True, remove_comments=True)
+    external_references_xpath = '//ol[@class="references"]//a[starts-with(@class, "external")]'
+    pages = get_pages(search_terms, limit=10)
     for page in pages:
         html_tree = etree.fromstring(page['html'], parser)
         print('\n', page['title'], '\n')
-        references = html_tree.xpath(external_references)
+        references = html_tree.xpath(external_references_xpath)
         for i in range(0, len(references)):
             print(i + 1, ':', references[i].text)
 
