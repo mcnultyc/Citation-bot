@@ -147,7 +147,18 @@ def get_citation_table(root):
                         text += elem.tail
     return citation_table
             
+    
+def print_citation_table(search_terms, limit = 1):
+    parser = etree.HTMLParser(remove_blank_text=True, remove_comments=True)
+    pages = get_pages(search_terms, limit)
+    for page in pages:
+        root = etree.fromstring(page['html'], parser)
+        citation_table = get_citation_table(root)
+        for cite_note, text in citation_table.items():
+            print('\n{}'.format(cite_note))
+            print('{}\n'.format(text))
 
+            
 # Format citation response and reply to request
 def respond_citation(comment, citation):
     # comment.reply(citation)
