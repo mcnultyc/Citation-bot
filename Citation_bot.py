@@ -94,6 +94,35 @@ def print_references(search_terms):
         for i in range(0, len(references)):
             print(i + 1, ':', references[i].text)
 
+def get_citation_table(root):
+    citation_table = defaultdict()
+    # Iterate through paragraph elements
+    for paragraph in root.iter('p'):
+        text = paragraph.text if paragraph.text else ''
+        # Iterate through descendants of paragraphs
+        for elem in paragraph.iterdescendants(tag=etree.Element):
+            if elem.get('class') != 'reference':
+                parent = elem.getparent()
+                # Check if elem is a nested citation
+                if len(parent) and parent.get('class') == 'reference':
+                    # Use cite note as key for text
+                    citation_table[elem.get('href')] = text
+                    # Check if parent reference class has tail
+                    if parent.tail:
+                        text = parent.tail
+                    else:
+                        # Check for adjacent citations
+                        next = parent.getnext()
+                        if next is None or next.get('class') != 'reference':
+                            text = ''
+                else:
+                    # Add text and tail
+                    if elem.text:
+                        text += elem.text
+                    if elem.tail:
+                        text += elem.tail
+    return citation_table
+            
 
 # Format citation response and reply to request
 def respond_citation(comment, citation):
