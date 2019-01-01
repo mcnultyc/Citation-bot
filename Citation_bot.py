@@ -94,6 +94,30 @@ def print_references(search_terms):
         for i in range(0, len(references)):
             print(i + 1, ':', references[i].text)
 
+
+# This function splits a document by the inline
+# citations used and creates a table using the
+# cite note and preceding text.
+# ex.
+# <p>
+#   Bill Clinton's father, 
+#   <a title="William Jefferson Blythe Jr." href="/wiki/William_Jefferson_Blythe_Jr.">
+#       William Jefferson Blythe Jr.
+#   </a> 
+#   (February 27, 1918 – May 17, 1946), was a traveling heavy equipment salesman who died 
+#   in a car crash three months before Bill was born.
+#   <sup class="reference" id="cite_ref-whitehouse.gov_bio_2-0">
+#       <a href="#cite_note-whitehouse.gov_bio-2">[2]</a>
+#   </sup> 
+#   ...
+# </p>
+# citation table = { 
+#    "#cite_note-whitehouse.gov_bio-2" :
+#    "Bill Clinton's father, William Jefferson Blythe Jr. (February 27, 1918 – May 17, 1946)
+#    , was a traveling heavy equipment salesman who died in a car crash three months 
+#    before Bill was born."
+#    }               
+#
 def get_citation_table(root):
     citation_table = defaultdict()
     # Iterate through paragraph elements
