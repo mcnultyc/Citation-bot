@@ -253,9 +253,7 @@ if __name__ == '__main__':
     # Get subreddit from command line
     subreddit = sys.argv[1]
     # Create reddit instance using our bots keys
-    reddit = praw.Reddit(client_id='nqrfbiLMx2fN3w',
-                     client_secret='9FIT26JP9cBlbD-hqEXBssLd2xs',
-                     user_agent='Citation-bot')
+    reddit = praw.Reddit()
     # Iterate through top-10 submissions in the subreddit
     for submission in reddit.subreddit(subreddit).hot(limit=10):
         # Get citations from submission
