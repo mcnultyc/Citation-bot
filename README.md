@@ -5,8 +5,7 @@
 ## :wrench: Setup
 ### Python packages to install
 - Install [PRAW: The Python Reddit API Wrapper](https://praw.readthedocs.io/en/latest/)</br>
-  by entering `pip install praw` in the command line. The API keys for the application are</br>
-  available inside of the [Citation_bot.py](Citation_bot.py) script.
+  by entering `pip install praw` in the command line.
   
 - Install [SpaCy: Industrial Strength Natural Language Processing](https://spacy.io/)</br>
   by entering `pip install spacy` in the command line. You'll also need to install the [english language model](https://github.com/explosion/spacy-models/releases//tag/en_core_web_sm-2.0.0)</br>
